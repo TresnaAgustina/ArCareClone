@@ -150,7 +150,7 @@
                         keterangan: this.keterangan,
                         detail_tickets: tiket_detail
                        }
-                       console.log(data.detail_tickets)
+                       console.log(data)
                     }
                 }))
             })
