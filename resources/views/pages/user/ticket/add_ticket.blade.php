@@ -139,6 +139,8 @@
                         }]
                     }],
                     getData() {
+                        let tiket_detail = this.detail_tickets.map((data) => data)
+
                        let data = {
                         id_pelanggan: this.id_pelanggan,
                         nama_pic_fakultas: this.nama_pic_fakultas,
@@ -146,9 +148,9 @@
                         nama_pic_ruangan: this.nama_pic_ruangan,
                         telepon_pic_ruangan: this.telepon_pic_ruangan,
                         keterangan: this.keterangan,
-                        detail_tickets: this.detail_tickets
+                        detail_tickets: tiket_detail
                        }
-                       console.log(data)
+                       console.log(data.detail_tickets)
                     }
                 }))
             })
