@@ -141,6 +141,7 @@
                     getData() {
                         let tiket_detail = this.detail_tickets.map((data) => data)
 
+                        
                        let data = {
                         id_pelanggan: this.id_pelanggan,
                         nama_pic_fakultas: this.nama_pic_fakultas,
