@@ -40,4 +40,10 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketDetailLocation::class, 'id_tiket', 'id');
     }
+
+    // one to many relationship with TicketLog
+    public function logs()
+    {
+        return $this->hasMany(TicketLog::class, 'id_tiket', 'id');
+    }
 }

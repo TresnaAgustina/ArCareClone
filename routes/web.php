@@ -42,7 +42,7 @@ Route::prefix('/admin')->group(function () {
         // POST
         Route::post('/{id}/kirim_jadwal', [AdminKelolaTiketController::class, 'kirim_jadwal'])->name('admin.tiket.kirim_jadwal');
         Route::post('/{id}/penugasan', [AdminKelolaTiketController::class, 'penugasan'])->name('admin.tiket.penugasan');
-        Route::post('/{id}/sampaikan_kendala', [AdminKelolaTiketController::class, 'sampaikan_kendala'])->name('admin.tiket.sampaikan_kendala');
+        Route::post('/{id}/kirim_kendala', [AdminKelolaTiketController::class, 'kirim_kendala'])->name('admin.tiket.sampaikan_kendala');
     });
 });
 
@@ -53,6 +53,11 @@ Route::prefix('/pelanggan')->group(function () {
     Route::prefix('/tiket')->group(function () {
         // GET
         Route::get('/', [PelangganKelolaTiketController::class, 'index'])->name('pelanggan.tiket.index');
+        Route::get('/masuk', [PelangganKelolaTiketController::class, 'masuk'])->name('pelanggan.tiket.masuk');
+        Route::get('/aktif', [PelangganKelolaTiketController::class, 'aktif'])->name('pelanggan.tiket.aktif');
+        Route::get('/pending', [PelangganKelolaTiketController::class, 'pending'])->name('pelanggan.tiket.pending');
+        Route::get('/selesai', [PelangganKelolaTiketController::class, 'selesai'])->name('pelanggan.tiket.selesai');
+        Route::get('/dibatalkan', [PelangganKelolaTiketController::class, 'dibatalkan'])->name('pelanggan.tiket.dibatalkan');
         Route::get('/new', [PelangganKelolaTiketController::class, 'new'])->name('pelanggan.tiket.new');
         Route::get('/{id}', [PelangganKelolaTiketController::class, 'detail'])->name('pelanggan.tiket.detail');
         // POST
