@@ -20,7 +20,7 @@
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Satuan Kerja
                             </label>
-                            <input type="text" placeholder="Satuan Kerja"
+                            <input type="text" name="nama_pelanggan" placeholder="Satuan Kerja"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                         </div>
                         <h1 class="font-bold text-xl">Data PIC</h1>
@@ -29,28 +29,28 @@
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Nama PIC Fakultas
                                 </label>
-                                <input type="text" x-model="nama_pic_fakultas" placeholder="Nama PIC Fakultas"
+                                <input type="text" name="nama_pic_fakultas" x-model="nama_pic_fakultas" placeholder="Nama PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Telepon PIC Fakultas
                                 </label>
-                                <input type="tel"  x-model="telepon_pic_fakultas" placeholder="Telepon PIC Fakultas"
+                                <input type="tel" name="telepon_pic_fakultas" x-model="telepon_pic_fakultas" placeholder="Telepon PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Nama PIC Ruangan
                                 </label>
-                                <input type="text"  x-model="nama_pic_ruangan" placeholder="Nama PIC Ruangan"
+                                <input type="text" name="name_pic_ruangan" x-model="nama_pic_ruangan" placeholder="Nama PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Telepon PIC Ruangan
                                 </label>
-                                <input type="tel"  x-model="telepon_pic_ruangan" placeholder="Telepon PIC Ruangan"
+                                <input type="tel" name="telepon_pic_ruangan" x-model="telepon_pic_ruangan" placeholder="Telepon PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Keterangan (opsional)
                             </label>
-                            <textarea rows="6"  x-model="keterangan" placeholder="Keterangan"
+                            <textarea rows="6" name="keterangan"  x-model="keterangan" placeholder="Keterangan"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                         </div>
                         <br>
@@ -80,9 +80,9 @@
                                                         class="fa-solid fa-xmark"></i></button>
                                             </template>
                                         </div>
-                                        <input type="text" placeholder="Lokasi" x-model="detail_tickets[idx]['lokasi']"
+                                        <input type="text" name="detail_tickets[idx]['lokasi']" placeholder="Lokasi" x-model="detail_tickets[idx]['lokasi']"
                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
-                                        <textarea rows="4" placeholder="Detail Lokasi" x-model="detail_tickets[idx]['alamat']"
+                                        <textarea rows="4" name="detail_tickets[idx]['alamat']" placeholder="Detail Lokasi" x-model="detail_tickets[idx]['alamat']"
                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                                         <div class="flex flex-col gap-3">
                                             <template x-for="(data, index) in  detail_tickets[idx]['detail_products']":key="index"
@@ -90,12 +90,14 @@
                                                 <div class="flex flex-row gap-2">
                                                     <div class="basis-2/4">
                                                         <input type="text"
+                                                            name="detail_tickets[idx]['detail_products'][index]['produk']"
                                                             x-model="detail_tickets[idx]['detail_products'][index]['produk']"
                                                             placeholder="Merk Produk"
                                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                                     </div>
                                                     <div class="basis-3/4">
                                                         <input type="text"
+                                                            name="detail_tickets[idx]['detail_products'][index]['permasalahan']"
                                                             x-model="detail_tickets[idx]['detail_products'][index]['permasalahan']"
                                                             placeholder="Permasalahan"
                                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
@@ -165,9 +167,9 @@
             const postDataTicket = async (ticket) => {
                 try {
                     console.log(ticket)
-                    const postData = await fetch("{{ url('/pelanggan/tiket/store') }}", {
+                    const postData = await fetch("{{ url('pelanggan/tiket/store') }}", {
                         method: 'POST',
-                        header: {
+                        headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             'Content-Type': 'application/json',
                         },

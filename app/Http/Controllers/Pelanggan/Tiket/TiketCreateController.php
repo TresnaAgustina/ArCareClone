@@ -17,12 +17,12 @@ class TiketCreateController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(TiketRequest $request)
+    public function __invoke(Request $request)
     {
         try {
             dd($request->all());
             // *** === Validasi Data === *** //
-            $request->validated();
+            // $request->validated();
             $pelanggan = User::find($request->id_pelanggan);
             if (!$pelanggan) {
                 return redirect()->back()->with('error', 'Pelanggan tidak ditemukan');
