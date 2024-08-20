@@ -11,15 +11,25 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $keyType = 'int';
+    public $incrementing = true;
+    public $timestamps = true;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'password',
+        'role',
+        'nomor_telepon',
+        'alamat',
     ];
 
     /**
@@ -43,5 +53,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // one to many relationship with Ticket
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'id_pelanggan', 'id');
     }
 }
