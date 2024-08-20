@@ -167,7 +167,7 @@
                     console.log(ticket)
                     const postData = await fetch("{{ url('/pelanggan/tiket/store') }}", {
                         method: 'POST',
-                        header: {
+                        headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             'Content-Type': 'application/json',
                         },

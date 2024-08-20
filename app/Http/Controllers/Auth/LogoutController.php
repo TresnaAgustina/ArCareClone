@@ -14,30 +14,20 @@ class LogoutController extends Controller
     public function __invoke(Request $request)
     {
         try {
-            Auth::user()->tokens->each(function ($token) {
-                $token->delete();
-            });
+            // Auth::user()->tokens->each(function ($token) {
+            //     $token->delete();
+            // });
     
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            // return redirect()->route('login')->with(
-            //     'success', 'Logout berhasil'
-            // );
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Logout berhasil',
-                'status' => 200
-            ]);
+            return redirect()->route('login')->with(
+                'success', 'Logout berhasil'
+            );
         } catch (\Throwable $th) {
-            // return redirect()->back()->with(
-            //     'error', $th->getMessage()
-            // );
-            return response()->json([
-                'status' => 'error',
-                'message' => $th->getMessage(),
-                'status' => 500
-            ]);
+            return redirect()->back()->with(
+                'error', $th->getMessage()
+            );
         }
     }
 }
