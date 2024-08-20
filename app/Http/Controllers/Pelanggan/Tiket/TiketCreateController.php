@@ -20,7 +20,6 @@ class TiketCreateController extends Controller
     public function __invoke(TiketRequest $request)
     {
         try {
-
             dd($request->all());
             // *** === Validasi Data === *** //
             $request->validated();
@@ -50,14 +49,14 @@ class TiketCreateController extends Controller
                 'status' => 1,
             ]);
 
-            foreach ($request->detail as $item) {
+            foreach ($request->detail_tickets as $item) {
                 $detail = TicketDetailLocation::create([
                     'id_tiket' => $store->id,
                     'lokasi' => $item['lokasi'],
                     'alamat' => $item['alamat'],
                 ]);
                 // insert to detail product
-                foreach ($item['product'] as $value) {
+                foreach ($item['detail_products'] as $value) {
                     $product = TicketDetailProduct::create([
                         'id_lokasi' => $detail->id,
                         'merk_produk' => $value['merk_produk'],
