@@ -150,7 +150,19 @@
                         keterangan: this.keterangan,
                         detail_tickets: tiket_detail
                        }
-                       console.log(data)
+                       const request = fetch("/pelanggan/tiket/store", {
+                            headers: {
+                                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify(data),
+                        }).then((response) => {
+                            console.log(response)
+                        }).catch((error) => {
+                            console.log(error.message)
+                        });
                     }
                 }))
             })

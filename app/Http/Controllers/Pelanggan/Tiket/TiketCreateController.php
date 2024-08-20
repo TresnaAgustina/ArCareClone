@@ -20,13 +20,13 @@ class TiketCreateController extends Controller
     public function __invoke(TiketRequest $request)
     {
         try {
+
+            dd($request->all());
             // *** === Validasi Data === *** //
             $request->validated();
             $pelanggan = User::find($request->id_pelanggan);
             if (!$pelanggan) {
-                return response()->json([
-                    'message' => 'ID Pelanggan tidak ditemukan',
-                ], 404);
+                return redirect()->back()->with('error', 'Pelanggan tidak ditemukan');
             }
 
             // *** === Data Generate === *** //
@@ -67,18 +67,20 @@ class TiketCreateController extends Controller
             }
             DB::commit();
 
-            return response()->json([
-                'message' => 'Tiket berhasil dibuat',
-                'data' => [
-                    'data_tiket' => $store->load('detail_tickets', 'detail_tickets.detail_products'),
-                ],
-            ], 201);
+            return redirect()->back()->with('success', 'Tiket berhasil dibuat');
+            // return response()->json([
+            //     'message' => 'Tiket berhasil dibuat',
+            //     'data' => [
+            //         'data_tiket' => $store->load('detail_tickets', 'detail_tickets.detail_products'),
+            //     ],
+            // ], 201);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json([
-                'message' => 'Tiket gagal dibuat',
-                'error' => $th->getMessage(),
-            ], 500);
+            return redirect()->back()->with('error', 'Tiket gagal dibuat');
+            // return response()->json([
+            //     'message' => 'Tiket gagal dibuat',
+            //     'error' => $th->getMessage(),
+            // ], 500);
         }
     }
 }
