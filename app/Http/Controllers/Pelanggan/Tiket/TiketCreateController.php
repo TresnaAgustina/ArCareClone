@@ -21,7 +21,7 @@ class TiketCreateController extends Controller
     {
         try {
             // *** === Validasi Data === *** //
-            $request->all();
+            $request->validated();
             $pelanggan = User::find($request->id_pelanggan);
             if (!$pelanggan) {
                 // return redirect()->back()->with('error', 'Pelanggan tidak ditemukan');
