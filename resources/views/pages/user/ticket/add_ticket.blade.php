@@ -4,9 +4,9 @@
     <div>
         <div class="flex flex-col gap-9">
             <!-- Input Fields -->
-            <form x-data="newTicket" x-on:submit.prevent="getData()" method="POST" >
-                @csrf      
-                <div  class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <form x-data="newTicket" x-on:submit.prevent="getData()" method="POST">
+                @csrf
+                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div class="border-b flex flex-row justify-between border-stroke px-6.5 py-4 dark:border-strokedark">
                         <h3 class="font-semibold text-2xl text-black dark:text-white">
                             Pengajuan Tiket
@@ -29,28 +29,32 @@
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Nama PIC Fakultas
                                 </label>
-                                <input type="text" name="nama_pic_fakultas" x-model="nama_pic_fakultas" placeholder="Nama PIC Fakultas"
+                                <input type="text" name="nama_pic_fakultas" x-model="nama_pic_fakultas"
+                                    placeholder="Nama PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Telepon PIC Fakultas
                                 </label>
-                                <input type="tel" name="telepon_pic_fakultas" x-model="telepon_pic_fakultas" placeholder="Telepon PIC Fakultas"
+                                <input type="tel" name="telepon_pic_fakultas" x-model="telepon_pic_fakultas"
+                                    placeholder="Telepon PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Nama PIC Ruangan
                                 </label>
-                                <input type="text" name="name_pic_ruangan" x-model="nama_pic_ruangan" placeholder="Nama PIC Ruangan"
+                                <input type="text" name="name_pic_ruangan" x-model="nama_pic_ruangan"
+                                    placeholder="Nama PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Telepon PIC Ruangan
                                 </label>
-                                <input type="tel" name="telepon_pic_ruangan" x-model="telepon_pic_ruangan" placeholder="Telepon PIC Ruangan"
+                                <input type="tel" name="telepon_pic_ruangan" x-model="telepon_pic_ruangan"
+                                    placeholder="Telepon PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                             </div>
                         </div>
@@ -58,7 +62,7 @@
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Keterangan (opsional)
                             </label>
-                            <textarea rows="6" name="keterangan"  x-model="keterangan" placeholder="Keterangan"
+                            <textarea rows="6" name="keterangan" x-model="keterangan" placeholder="Keterangan"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                         </div>
                         <br>
@@ -80,18 +84,21 @@
                                                         class="fa-solid fa-xmark"></i></button>
                                             </template>
                                         </div>
-                                        <input type="text" name="detail_tickets[idx]['lokasi']" placeholder="Lokasi" x-model="detail_tickets[idx]['lokasi']"
+                                        <input type="text" name="detail_tickets[idx]['lokasi']" placeholder="Lokasi"
+                                            x-model="detail_tickets[idx]['lokasi']"
                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
-                                        <textarea rows="4" name="detail_tickets[idx]['alamat']" placeholder="Detail Lokasi" x-model="detail_tickets[idx]['alamat']"
+                                        <textarea rows="4" name="detail_tickets[idx]['alamat']" placeholder="Detail Lokasi"
+                                            x-model="detail_tickets[idx]['alamat']"
                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                                         <div class="flex flex-col gap-3">
-                                            <template x-for="(data, index) in  detail_tickets[idx]['detail_products']":key="index"
+                                            <template
+                                                x-for="(data, index) in  detail_tickets[idx]['detail_products']":key="index"
                                                 x-effect="console.log(detail_tickets.length)">
                                                 <div class="flex flex-row gap-2">
                                                     <div class="basis-2/4">
                                                         <input type="text"
-                                                            name="detail_tickets[idx]['detail_products'][index]['produk']"
-                                                            x-model="detail_tickets[idx]['detail_products'][index]['produk']"
+                                                            name="detail_tickets[idx]['detail_products'][index]['merk_produk']"
+                                                            x-model="detail_tickets[idx]['detail_products'][index]['merk_produk']"
                                                             placeholder="Merk Produk"
                                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                                     </div>
@@ -109,7 +116,8 @@
                                                                 class="text-primary hover:bg-neutral-200 transition-colors w-full h-full rounded-lg border-[1.5px] border-stroke bg-white text-xl font-semibold">+</button>
                                                         </template>
                                                         <template x-if="index > 0">
-                                                            <button x-on:click="detail_tickets[idx]['detail_products'].splice(index, 1)"
+                                                            <button
+                                                                x-on:click="detail_tickets[idx]['detail_products'].splice(index, 1)"
                                                                 class="text-primary hover:bg-neutral-200 transition-colors w-full h-full rounded-lg border-[1.5px] border-stroke bg-white text-xl font-semibold">-</button>
                                                         </template>
                                                     </div>
@@ -145,20 +153,21 @@
                     }],
                     getData() {
                         let tiket_detail = []
-                        this.detail_tickets.map((data) => tiket_detail.push(JSON.parse(JSON.stringify(data)) ))
-            
+                        this.detail_tickets.map((data) => tiket_detail.push(JSON.parse(JSON.stringify(
+                            data))))
 
-                       let data = {
-                        id_pelanggan: this.id_pelanggan,
-                        nama_pic_fakultas: this.nama_pic_fakultas,
-                        telepon_pic_fakultas: this.telepon_pic_fakultas,
-                        nama_pic_ruangan: this.nama_pic_ruangan,
-                        telepon_pic_ruangan: this.telepon_pic_ruangan,
-                        keterangan: this.keterangan,
-                        detail_tickets: tiket_detail
-                       }
-                       
-                       postDataTicket(data)
+
+                        let data = {
+                            id_pelanggan: this.id_pelanggan,
+                            nama_pic_fakultas: this.nama_pic_fakultas,
+                            telepon_pic_fakultas: this.telepon_pic_fakultas,
+                            nama_pic_ruangan: this.nama_pic_ruangan,
+                            telepon_pic_ruangan: this.telepon_pic_ruangan,
+                            keterangan: this.keterangan,
+                            detail_tickets: tiket_detail
+                        }
+
+                        postDataTicket(data)
                     }
                 }))
             })
@@ -174,10 +183,19 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(ticket)
+                    }).then(async (res) => {
+                        const data = await res.json()
+                        console.log(data)
+                        return Swal.fire({
+                            title: 'Success',
+                            text: 'Do you want to continue',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
                     })
-                    console.log(postData)
+
                 } catch (error) {
-                    console.log(error)
+                    return Swal.fire()
                 }
             }
         </script>
