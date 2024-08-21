@@ -20,8 +20,9 @@
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Satuan Kerja
                             </label>
-                            <input type="text" name="nama_pelanggan" placeholder="Satuan Kerja"
+                            <input type="text" name="nama_pelanggan" value="{{ Auth::user()->name }}" placeholder="Satuan Kerja"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+                                <input type="text" name="id_pelanggan" value="{{ Auth::user()->id }}" hidden id="">
                         </div>
                         <h1 class="font-bold text-xl">Data PIC</h1>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -91,7 +92,7 @@
                                                     <div class="basis-2/4">
                                                         <input type="text"
                                                             name="detail_tickets[idx]['detail_products'][index]['produk']"
-                                                            x-model="detail_tickets[idx]['detail_products'][index]['produk']"
+                                                            x-model="detail_tickets[idx]['detail_products'][index]['merk_produk']"
                                                             placeholder="Merk Produk"
                                                             class="w-full rounded-lg border-[1.5px] bg-white border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                                                     </div>
@@ -129,7 +130,7 @@
             // {data_permasalahan: [{lokasi: '', alamat: '', detail_products: [{merk_produk: '', permasalahan: ''}]}]}        
             document.addEventListener('alpine:init', () => {
                 Alpine.data('newTicket', () => ({
-                    id_pelanggan: 0,
+                    id_pelanggan: 2,
                     nama_pic_fakultas: '',
                     telepon_pic_fakultas: '',
                     nama_pic_ruangan: '',
