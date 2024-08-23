@@ -15,17 +15,19 @@
                       ArCare
                     </h3>
                   </div>
-                  <form action="#">
+                  <form action="{{ route('auth') }}" method="POST">
+                    @csrf
                     <div class="p-6.5">
                       <div class="mb-4.5">
                         <label
                           class="mb-3 block text-sm font-medium text-black dark:text-white"
                         >
-                          Email atau Username
+                          Username
                         </label>
                         <input
-                          type="email"
-                          placeholder="Enter your email address"
+                        name="username"
+                          type="text"
+                          placeholder="Masukan username"
                           class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
                       </div>
@@ -37,8 +39,9 @@
                           Password
                         </label>
                         <input
+                        name="password"
                           type="password"
-                          placeholder="Enter password"
+                          placeholder="Masukan password"
                           autocomplete="new-password"
                           class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
@@ -79,12 +82,12 @@
                           <p>Remember me</p>
                         </label> --}}
 
-                        <a href="#" class="text-sm text-primary hover:underline"
+                        {{-- <a href="#" class="text-sm text-primary hover:underline"
                           >Forget password?</a
-                        >
+                        > --}}
                       </div>
 
-                      <button
+                      <button type="submit"
                         class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                       >
                         Login

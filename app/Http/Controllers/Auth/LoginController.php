@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
     function index() : object {
         try {
-            return view('auth.login');
+            return view('pages.auth.login');
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()
@@ -19,82 +20,53 @@ class LoginController extends Controller
         }
     }
 
-    function login(LoginRequest $request) : object {
+    function login(LoginRequest $request): object {
         try {
-            $request->validated();
+            // Validasi input
+            $validated = $request->validated();
+            
+            // Ambil data kredensial (username dan password)
             $credentials = $request->only('username', 'password');
+            
+            // Log untuk memeriksa kredensial yang diambil
+            Log::info('Login attempt with credentials:', $credentials);
+            
+            // Coba login menggunakan kredensial
             if (Auth::attempt($credentials)) {
-                if (Auth::user()->role === 'admin') {
-                    $request->session()->regenerate();
-                    // return redirect()->route('admin.dashboard');
-                    return response()->json([
-                        'status' => 'success',
-                        'message' => 'Login berhasil',
-                        'data' => Auth::user(),
-                        'role' => Auth::user()->role,
-                        'status' => 200
-                    ]);
-                }else if(Auth::user()->role === 'manajer'){
-                    // create session
-                    $request->session()->regenerate();
-
-                    // return redirect()->route('manajer.dashboard');
-                    return response([
-                        'status' => 'success',
-                        'message' => 'Login berhasil',
-                        'data' => Auth::user(),
-                        'role' => Auth::user()->role,
-                        'status' => 200
-                    ]);
-                }else if(Auth::user()->role === 'teknisi'){
-                    $request->session()->regenerate();
-                    // return redirect()->route('teknisi.dashboard');
-                    return response([
-                        'status' => 'success',
-                        'message' => 'Login berhasil',
-                        'data' => Auth::user(),
-                        'role' => Auth::user()->role,
-                        'status' => 200
-                    ]);
-                }else if (Auth::user()->role === 'rekanan') {
-                    $request->session()->regenerate();
-                    // return redirect()->route('rekanan.dashboard');
-                    return response([
-                        'status' => 'success',
-                        'message' => 'Login berhasil',
-                        'data' => Auth::user(),
-                        'role' => Auth::user()->role,
-                        'status' => 200
-                    ]);
-                }else if (Auth::user()->role === 'pelanggan') {
-                    $request->session()->regenerate();
-                    // return redirect()->route('pelanggan.dashboard');
-                    return response([
-                        'status' => 'success',
-                        'message' => 'Login berhasil',
-                        'data' => Auth::user(),
-                        'role' => Auth::user()->role,
-                        'status' => 200
-                    ]);
-                }else{
-                    // return redirect()->route('login')->with(
-                    //     'error', 'Anda tidak memiliki hak akses'
-                    // );
-                    return response([
-                        'status' => 'error',
-                        'message' => 'Anda tidak memiliki hak akses',
-                        'status' => 403
-                    ]);
+                // Regenerasi session untuk menghindari session fixation
+                $request->session()->regenerate();
+                
+                // Log user info
+                Log::info('User authenticated:', ['user_id' => Auth::id(), 'role' => Auth::user()->role]);
+    
+                // Redirect berdasarkan role user
+                switch (Auth::user()->role) {
+                    case 'admin':
+                        return redirect()->route('admin.dashboard');
+                    case 'manajer':
+                        return redirect()->route('manajer.dashboard');
+                    case 'teknisi':
+                        return redirect()->route('teknisi.dashboard');
+                    case 'rekanan':
+                        return redirect()->route('rekanan.dashboard');
+                    case 'pelanggan':
+                        return redirect()->route('pelanggan.dashboard');
+                    default:
+                        // Log jika user tidak memiliki role yang diizinkan
+                        Log::error('Unauthorized access attempt:', ['user_id' => Auth::id()]);
+                        return redirect()->route('login')->with('error', 'Anda tidak memiliki hak akses');
                 }
             }
-
-            return redirect()->back()->with(
-                'error', 'Username atau Password salah'
-            );
+    
+            // Jika Auth::attempt gagal
+            Log::error('Failed login attempt: Invalid credentials', $credentials);
+            return redirect()->back()->with('error', 'Username atau Password salah');
+    
         } catch (\Throwable $th) {
-            return redirect()->back()->with(
-                'error', $th->getMessage()
-            );
+            // Log error detail untuk debugging
+            Log::error('An error occurred during login', ['exception' => $th]);
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
     }
+    
 }

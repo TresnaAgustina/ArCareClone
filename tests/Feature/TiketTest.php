@@ -23,17 +23,16 @@ class TiketTest extends TestCase
 
         $data = [
             'id_pelanggan' => $user->id,
-            'tanggal_dibuat' => '2022-08-13',
             'nama_pic_fakultas' => 'Nama PIC Fakultas',
             'telepon_pic_fakultas' => '081234567890',
             'nama_pic_ruangan' => 'Nama PIC Ruangan',
             'telepon_pic_ruangan' => '081234567890',
             'keterangan' => 'Keterangan',
-            'detail' => [
+            'detail_tickets' => [
                 [
                     'lokasi' => 'Lokasi 1',
                     'alamat' => 'Alamat 1',
-                    'product' => [
+                    'detail_products' => [
                         [
                             'merk_produk' => 'Merk 1',
                             'permasalahan' => 'Permasalahan 1',
@@ -47,7 +46,7 @@ class TiketTest extends TestCase
                 [
                     'lokasi' => 'Lokasi 2',
                     'alamat' => 'Alamat 2',
-                    'product' => [
+                    'detail_products' => [
                         [
                             'merk_produk' => 'Merk 3',
                             'permasalahan' => 'Permasalahan 3',

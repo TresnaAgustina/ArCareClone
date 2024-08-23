@@ -60,4 +60,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class, 'id_pelanggan', 'id');
     }
+
+    // one to many relationship with Assigment
+    public function assigments()
+    {
+        return $this->hasMany(Assigment::class, 'id_teknisi', 'id');
+    }
 }

@@ -19,6 +19,7 @@ class Ticket extends Model
         'id_pelanggan',
         'nama_pelanggan',
         'tanggal_dibuat',
+        'tanggal_perbaikan',
         'tanggal_selesai',
         'nama_pic_fakultas',
         'telepon_pic_fakultas',
@@ -39,5 +40,17 @@ class Ticket extends Model
     public function detail_tickets()
     {
         return $this->hasMany(TicketDetailLocation::class, 'id_tiket', 'id');
+    }
+
+    // one to many relationship with TicketLog
+    public function logs()
+    {
+        return $this->hasMany(TicketLog::class, 'id_tiket', 'id');
+    }
+
+    // one to one relationship with Assigment
+    public function assigment()
+    {
+        return $this->hasOne(Assigment::class, 'id_tiket', 'id');
     }
 }
