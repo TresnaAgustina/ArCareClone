@@ -202,6 +202,8 @@
                             text: 'Do you want to continue',
                             icon: 'success',
                             confirmButtonText: 'Ok'
+                        }).then(() => {
+                            window.location.href = "{{ url('pelanggan/tiket') }}"
                         })
                     })
 
