@@ -42,6 +42,7 @@
                                 </label>
                                 <input type="text" name="nama_pic_fakultas" x-model="nama_pic_fakultas" placeholder="Nama PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" required />
+                                    <span id="nama_pic_fakultas-error" class="text-red-600 text-sm"></span>
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -50,15 +51,16 @@
                                 </label>
                                 <input type="tel" name="telepon_pic_fakultas" x-model="telepon_pic_fakultas" placeholder="Telepon PIC Fakultas"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" required />
-                                    
+                                    <span id="telepon_pic_fakultas-error" class="text-red-600 text-sm"></span>
                             </div>
                             <div>
                                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">
                                     Nama PIC Ruangan
                                     <sub class="text-red-600 text-lg">*</sub>
                                 </label>
-                                <input type="text" name="name_pic_ruangan" x-model="nama_pic_ruangan" placeholder="Nama PIC Ruangan"
+                                <input type="text" name="nama_pic_ruangan" x-model="nama_pic_ruangan" placeholder="Nama PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" required />
+                                    <span id="nama_pic_ruangan-error" class="text-red-600 text-sm"></span>
                                    
                             </div>
                             <div>
@@ -68,6 +70,7 @@
                                 </label>
                                 <input type="tel" name="telepon_pic_ruangan" x-model="telepon_pic_ruangan" placeholder="Telepon PIC Ruangan"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" required />
+                                    <span id="telepon_pic_ruangan-error" class="text-red-600 text-sm"></span>
                             </div>
                         </div>
                         <div>
@@ -144,7 +147,6 @@
         </div>
 
         <script>
-            // {data_permasalahan: [{lokasi: '', alamat: '', detail_products: [{merk_produk: '', permasalahan: ''}]}]}        
             document.addEventListener('alpine:init', () => {
                 Alpine.data('newTicket', () => ({
                     id_pelanggan: '{{ Auth::user()->id }}',
@@ -185,8 +187,8 @@
 
             const postDataTicket = async (ticket) => {
                 try {
-                    console.log(ticket)
-                    const postData = await fetch("{{ url('pelanggan/tiket/store') }}", {
+                    console.log(ticket);
+                    const response = await fetch("{{ url('pelanggan/tiket/store') }}", {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -194,21 +196,60 @@
                             'Accept': 'application/json'
                         },
                         body: JSON.stringify(ticket)
-                    }).then(async (res) => {
-                        const data = await res.json()
-                        console.log(data)
+                    });
+
+                    // Jika respon statusnya sukses (2xx)
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
                         return Swal.fire({
-                            title: 'Success',
-                            text: 'Do you want to continue',
+                            title: 'Berhasil',
+                            text: 'Data berhasil disimpan.',
                             icon: 'success',
                             confirmButtonText: 'Ok'
                         }).then(() => {
-                            window.location.href = "{{ url('pelanggan/tiket') }}"
-                        })
-                    })
+                            window.location.href = "{{ url('pelanggan/tiket') }}";
+                        });
+                    } else if (response.status === 422) {
+                        // Jika respon statusnya 422 (Unprocessable Entity)
+                        const errorData = await response.json();
+                        console.error(errorData);
 
+                        // Reset semua error sebelumnya
+                        const errorElements = document.querySelectorAll('.text-red-600');
+                        errorElements.forEach(element => element.textContent = '');
+
+                        // Tampilkan error di field yang sesuai
+                        for (const [field, messages] of Object.entries(errorData.errors)) {
+                            const errorField = document.querySelector(`#${field}-error`);
+                            if (errorField) {
+                                errorField.textContent = messages.join(', ');
+                            }
+                        }
+
+                        return Swal.fire({
+                            title: 'Gagal',
+                            text: 'Terdapat kesalahan dalam pengisian form.',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    } else {
+                        // Handle other types of errors (e.g., server errors)
+                        return Swal.fire({
+                            title: 'Gagal',
+                            text: 'Terdapat kesalahan dalam pengiriman data. Silahkan coba lagi nanti.',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
                 } catch (error) {
-                    return Swal.fire()
+                    console.error(error);
+                    return Swal.fire({
+                        title: 'Gagal',
+                        text: 'Terjadi kesalahan dalam sistem. Silahkan coba lagi nanti.',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    });
                 }
             }
         </script>
