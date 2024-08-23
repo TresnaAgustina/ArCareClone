@@ -4,9 +4,16 @@ use App\Http\Controllers\Admin\Akun\AkunCreateController;
 use App\Http\Controllers\Admin\Akun\AkunDeleteController;
 use App\Http\Controllers\Admin\Akun\AkunUpdateController;
 use App\Http\Controllers\Admin\Tiket\AdminKelolaTiketController;
+use App\Http\Controllers\Admin\Tiket\AdminTiketKirimJadwalController;
+use App\Http\Controllers\Admin\Tiket\AdminTiketKirimKendalaController;
+use App\Http\Controllers\Admin\Tiket\AdminTiketPenugasanController;
+use App\Http\Controllers\Admin\Tiket\AdminTiketViewController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Pelanggan\Tiket\PelangganKelolaTiketController;
+use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiJadwalController;
+use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiKendalaController;
+use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketViewController;
 use App\Http\Controllers\Pelanggan\Tiket\TiketCreateController;
 use App\Http\Controllers\Teknisi\Tiket\TeknisiKelolaTiketController;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +47,12 @@ Route::middleware('auth:sanctum')->group(function () {
         // Kelola Tiket
         Route::prefix('/tiket')->group(function () {
             // GET
-            Route::get('/', [AdminKelolaTiketController::class, 'index'])->name('admin.tiket.index');
-            Route::get('/{id}', [AdminKelolaTiketController::class, 'detail'])->name('admin.tiket.detail');
+            Route::get('/', [AdminTiketViewController::class, 'index'])->name('admin.tiket.index');
+            Route::get('/{id}', [AdminTiketViewController::class, 'detail'])->name('admin.tiket.detail');
             // POST
-            Route::post('/{id}/kirim_jadwal', [AdminKelolaTiketController::class, 'kirim_jadwal'])->name('admin.tiket.kirim_jadwal');
-            Route::post('/{id}/penugasan', [AdminKelolaTiketController::class, 'penugasan'])->name('admin.tiket.penugasan');
-            Route::post('/{id}/kirim_kendala', [AdminKelolaTiketController::class, 'kirim_kendala'])->name('admin.tiket.sampaikan_kendala');
+            Route::post('/{id}/kirim_jadwal', AdminTiketKirimJadwalController::class)->name('admin.tiket.kirim_jadwal');
+            Route::post('/{id}/penugasan', AdminTiketPenugasanController::class)->name('admin.tiket.penugasan');
+            Route::post('/{id}/kirim_kendala', AdminTiketKirimKendalaController::class)->name('admin.tiket.sampaikan_kendala');
         });
     });
 
@@ -55,18 +62,18 @@ Route::middleware('auth:sanctum')->group(function () {
         // Kelola Tiket
         Route::prefix('/tiket')->group(function () {
             // GET
-            Route::get('/', [PelangganKelolaTiketController::class, 'index'])->name('pelanggan.tiket.index');
-            Route::get('/masuk', [PelangganKelolaTiketController::class, 'masuk'])->name('pelanggan.tiket.masuk');
-            Route::get('/aktif', [PelangganKelolaTiketController::class, 'aktif'])->name('pelanggan.tiket.aktif');
-            Route::get('/pending', [PelangganKelolaTiketController::class, 'pending'])->name('pelanggan.tiket.pending');
-            Route::get('/selesai', [PelangganKelolaTiketController::class, 'selesai'])->name('pelanggan.tiket.selesai');
-            Route::get('/dibatalkan', [PelangganKelolaTiketController::class, 'dibatalkan'])->name('pelanggan.tiket.dibatalkan');
-            Route::get('/new', [PelangganKelolaTiketController::class, 'new'])->name('pelanggan.tiket.new');
-            Route::get('/{id}', [PelangganKelolaTiketController::class, 'detail'])->name('pelanggan.tiket.detail');
+            Route::get('/', [PelangganTiketViewController::class, 'index'])->name('pelanggan.tiket.index');
+            Route::get('/masuk', [PelangganTiketViewController::class, 'masuk'])->name('pelanggan.tiket.masuk');
+            Route::get('/aktif', [PelangganTiketViewController::class, 'aktif'])->name('pelanggan.tiket.aktif');
+            Route::get('/pending', [PelangganTiketViewController::class, 'pending'])->name('pelanggan.tiket.pending');
+            Route::get('/selesai', [PelangganTiketViewController::class, 'selesai'])->name('pelanggan.tiket.selesai');
+            Route::get('/dibatalkan', [PelangganTiketViewController::class, 'dibatalkan'])->name('pelanggan.tiket.dibatalkan');
+            Route::get('/new', [PelangganTiketViewController::class, 'new'])->name('pelanggan.tiket.new');
+            Route::get('/{id}', [PelangganTiketViewController::class, 'detail'])->name('pelanggan.tiket.detail');
             // POST
             Route::post('/store', TiketCreateController::class)->name('pelanggan.tiket.store');
-            Route::post('/{id}/konfirmasi_jadwal', [PelangganKelolaTiketController::class, 'konfirmasi_jadwal'])->name('pelanggan.tiket.konfirmasi_jadwal');
-            Route::post('/{id}/konfirmasi_kendala', [PelangganKelolaTiketController::class, 'konfirmasi_kendala'])->name('pelanggan.tiket.konfirmasi_kendala');
+            Route::post('/{id}/konfirmasi_jadwal', PelangganTiketKonfirmasiJadwalController::class)->name('pelanggan.tiket.konfirmasi_jadwal');
+            Route::post('/{id}/konfirmasi_kendala', PelangganTiketKonfirmasiKendalaController::class)->name('pelanggan.tiket.konfirmasi_kendala');
         });
     });
 

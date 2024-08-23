@@ -22,7 +22,8 @@ class TicketLog extends Model
         'tanggal_jadwal',
         'deskripsi',
         'jenis_kendala',
-        'aksi',
+        'aksi_diambil',
+        'is_public',
     ];
 
     // Many to One Ticket

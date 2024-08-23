@@ -65,7 +65,7 @@
           <li>
             <a
               class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-bold text-black hover:text-white duration-300 ease-in-out hover:bg-primary dark:hover:bg-meta-4"
-              href="/user/ticket"
+              href="{{ route('pelanggan.tiket.index') }}"
               {{-- @click.prevent="selected = (selected === 'Ticket' ? '':'Ticket')" --}}
               :class="{ 'bg-primary text-white dark:bg-meta-4': (selected === 'Ticket') || (page === 'ticketMasuk' || page === 'dikerjakan' || page === 'pending' || page === 'selesai' || page === 'dibatalkan') }"
             >

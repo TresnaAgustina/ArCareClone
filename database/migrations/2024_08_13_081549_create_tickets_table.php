@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pelanggan');
             $table->string('nama_pelanggan');
             $table->date('tanggal_dibuat');
+            $table->date('tanggal_perbaikan')->nullable();
             $table->date('tanggal_selesai')->nullable();
             $table->string('nama_pic_fakultas');
             $table->string('telepon_pic_fakultas');

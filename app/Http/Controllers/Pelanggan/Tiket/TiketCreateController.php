@@ -7,10 +7,12 @@ use App\Http\Requests\TiketRequest;
 use App\Models\Ticket;
 use App\Models\TicketDetailLocation;
 use App\Models\TicketDetailProduct;
+use App\Models\TicketLog;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TiketCreateController extends Controller
 {
@@ -22,6 +24,7 @@ class TiketCreateController extends Controller
         try {
             // *** === Validasi Data === *** //
             $request->validated();
+            Log::info('Request Validated');
             $pelanggan = User::find($request->id_pelanggan);
             if (!$pelanggan) {
                 // return redirect()->back()->with('error', 'Pelanggan tidak ditemukan');
@@ -67,7 +70,22 @@ class TiketCreateController extends Controller
                     ]);
                 }
             }
+
+            TicketLog::create([
+                'id_tiket' => $store->id,
+                'dibuat_oleh' => $pelanggan->name,
+                'konteks' => 'Tiket Telah Terdaftar',
+                'status' => 1, // menunggu
+                'keterangan' => $request->keterangan,
+            ]);
             DB::commit();
+
+            if (!$store) {
+                // return redirect()->back()->with('error', 'Tiket gagal dibuat');
+                return response()->json([
+                    'message' => 'Tiket gagal dibuat',
+                ], 500);
+            }
 
             // return redirect()->back()->with('success', 'Tiket berhasil dibuat');
             return response()->json([

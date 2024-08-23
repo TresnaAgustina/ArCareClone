@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('jenis_kendala')->nullable();
             $table->string('aksi_diambil')->nullable();
+            $table->boolean('is_public')->default(true);
             $table->timestamps();
         });
     }
