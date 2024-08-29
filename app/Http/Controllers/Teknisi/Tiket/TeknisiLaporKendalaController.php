@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tiket;
+namespace App\Http\Controllers\Teknisi\Tiket;
 
 use App\Http\Controllers\Controller;
 use App\Models\Assigment;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class AdminTiketKirimKendalaController extends Controller
+class TeknisiLaporKendalaController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -29,7 +29,6 @@ class AdminTiketKirimKendalaController extends Controller
                 'aksi_diambil' => ['nullable', 'in:1,2,3', 'numeric'],
 
             ]);
-
             if ($validation->fails()) {
                 return redirect()->back()->withErrors(
                     $validation->errors()
@@ -40,26 +39,27 @@ class AdminTiketKirimKendalaController extends Controller
             TicketLog::create([
                 'id_tiket' => $tiket->id,
                 'dibuat_oleh' => Auth::user()->name,
-                'konteks' => 'Lapor Kendala dari Teknisi',
-                'status' => 4, // pending
+                'konteks' => 'Lapor Kendala',
+                'status' => 3, // dikerjakan
                 'jenis_kendala' => $data['jenis_kendala'],
                 'deskripsi' => $data['deskripsi'],
                 'aksi_diambil' => $data['aksi_diambil'],
-                'is_public' => true
+                'is_public' => false
             ]);
             $tiket->update([
-                'status' => 4, // pending
-                'kategori' => 6 // admin kirim kendala
+                'status' => 3, // dikerjakan
+                'kategori' => 8 // teknisi lapor kendala
             ]);
             $assign = Assigment::where('id_tiket', $id)->first();
             $assign->update([
-                'status' => 3, // pending
+                'status' => 2, // dikerjakan
             ]);
             DB::commit();
 
             return redirect()->back()->with(
                 'success', 'Kendala berhasil dilaporkan'
             );
+
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Error: ', ['error' => $th->getMessage()]);

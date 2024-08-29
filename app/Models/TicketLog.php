@@ -31,4 +31,29 @@ class TicketLog extends Model
     {
         return $this->belongsTo(Ticket::class, 'id_tiket', 'id');
     }
+
+    // format tanggal created_at menjadi d F Y
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->translatedFormat('d F Y');
+    }
+
+    // get jenis kendala, 1: Perlengkapan kurang, 2: Perbaikan diluar Garansi, 3: Penggantian Sparepart
+    public function getJenisKendalaAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Perlengkapan Kurang';
+                break;
+            case 2:
+                return 'Perbaikan diluar Garansi';
+                break;
+            case 3:
+                return 'Penggantian Sparepart';
+                break;
+            default:
+                return 'Tidak Diketahui';
+                break;
+        }
+    }
 }

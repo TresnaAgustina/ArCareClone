@@ -1,30 +1,27 @@
-@extends('layout.header_user', ['title' => "Ticket"])
+@extends('layout.header_user', ['title' => "Ticket | Admin"])
 
 @section('content')
-{{-- if session has error --}}
-@if (session('error'))
-<div class="z-999 relative">
-    <div class="bg-red-500 text-white p-4 rounded-md mb-5 mt-10">
-        {{ session('error') }}
-    </div>
-</div>
-@endif
-{{-- if session has success --}}
-@if (session('success'))
-<div class="z-999 relative">
-    <div class="bg-green-500 text-white p-4 rounded-md mb-5 mt-10">
-        {{ session('success') }}
-    </div>
-</div>
-@endif
-
-
+  @if (session('error'))
+  <div class="z-999 relative">
+      <div class="bg-red-500 text-white p-4 rounded-md mb-5 mt-10">
+          {{ session('error') }}
+      </div>
+  </div>
+  @endif
+  {{-- if session has success --}}
+  @if (session('success'))
+  <div class="z-999 relative">
+      <div class="bg-green-500 text-white p-4 rounded-md mb-5 mt-10">
+          {{ session('success') }}
+      </div>
+  </div>
+  @endif
 <div
   class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1"
 >
   <div class="flex flex-row justify-between my-2">
     <h1 class="text-2xl font-bold">Ticket Masuk</h1>
-    <a href="{{ route('pelanggan.tiket.new') }}" class="bg-primary hover:bg-red-400 transition-colors px-5 py-2 font-bold text-white rounded-md">+ Tambah Tiket Baru</a>
+    {{-- <a href="{{ route('pelanggan.tiket.new') }}" class="bg-primary hover:bg-red-400 transition-colors px-5 py-2 font-bold text-white rounded-md">+ Tambah Tiket Baru</a> --}}
   </div>
   <div class="max-w-full overflow-x-auto">
     <table id="ticketData" class="w-full table-auto">
@@ -78,7 +75,7 @@
           </td>
           <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
             <div class="flex items-center space-x-3.5">
-              <a href="{{ route('pelanggan.tiket.detail', $item->id) }}" class="hover:text-primary">
+              <a href="{{ route('admin.tiket.detail', $item->id) }}" class="hover:text-primary">
                 <svg
                   class="fill-current"
                   width="18"

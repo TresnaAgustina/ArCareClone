@@ -43,7 +43,7 @@ class AdminTiketKirimJadwalController extends Controller
             TicketLog::create([
                 'id_tiket' => $tiket->id,
                 'dibuat_oleh' => Auth::user()->name,
-                'konteks' => 'Penentuan Tanggal Perbaikan',
+                'konteks' => 'Penentuan Jadwal Perbaikan',
                 'status' => 1, // menunggu
                 'tanggal_jadwal' => $data['tanggal'],
                 'deskripsi' => $data['keterangan']

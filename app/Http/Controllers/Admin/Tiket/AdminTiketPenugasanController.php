@@ -49,7 +49,7 @@ class AdminTiketPenugasanController extends Controller
                 'id_tiket' => $tiket->id,
                 'dibuat_oleh' => Auth::user()->name,
                 'konteks' => 'Penugasan Teknisi',
-                'status' => 2, // penugasan
+                'status' => 2, // dikerjakan
                 'tanggal_jadwal' => $data['tanggal_perbaikan'],
                 'deskripsi' => $data['deskripsi']
             ]);

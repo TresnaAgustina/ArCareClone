@@ -13,7 +13,10 @@ class AdminTiketViewController extends Controller
 {
     function index() : object {
         try {
-            //code...
+            $tiket = Ticket::all();
+            return view('test.admin.admin-tiket-index', [
+                'tiket' => $tiket
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()
@@ -26,11 +29,16 @@ class AdminTiketViewController extends Controller
             $tiket->tanggal_dibuat = Carbon::parse($tiket->tanggal_dibuat)->translatedFormat('d F Y');
             $log = TicketLog::where('id_tiket', $id)->get();
             $teknisi = User::where('role', 'teknisi')->get();
+            $kendala = TicketLog::where('id_tiket', $id)
+              ->orderBy('created_at', 'desc')
+              ->first();
+
 
             return view('test.admin.admin-tiket-detail', [
                 'tiket' => $tiket,
                 'log' => $log,
-                'teknisi' => $teknisi
+                'teknisi' => $teknisi,
+                'kendala' => $kendala
             ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(

@@ -14,7 +14,7 @@ class PelangganTiketViewController extends Controller
     // View Tiket All
     function index() : object {
         try {
-            $tiket = Ticket::where('id_pelanggan', Auth::user()->id)->get();
+            $tiket = Ticket::where('id_pelanggan', Auth::user()->id)->orderBy('created_at', 'desc')->get();
             foreach ($tiket as $t) {
                 $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
             }
@@ -85,7 +85,7 @@ class PelangganTiketViewController extends Controller
         try {
             $tiket = Ticket::find($id)->load('detail_tickets', 'detail_tickets.detail_products');
             $tiket->tanggal_dibuat = Carbon::parse($tiket->tanggal_dibuat)->translatedFormat('d F Y');
-            $log = TicketLog::where('id_tiket', $id)->get();
+            $log = TicketLog::where('id_tiket', $id)->where('is_public', true)->get();
 
             return view('test.pelanggan.pelanggan-tiket-detail', [
                 'tiket' => $tiket,

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('telepon_pic_ruangan');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['menunggu', 'penugasan', 'dikerjakan', 'pending', 'dibatalkan', 'selesai'])->default('menunggu');
-            $table->enum('kategori', [1,2,3,4,5,6,7,8,9])->default(1)->comment('1: menunggu, 2: admin memberi jadwal, 3: pelanggan konfirmasi setuju, 4: pelanggan konfirmasi tidak setuju, 5: admin memberi tugas, 6: teknisi menerima penugasan, 7: teknisi menolak penugasan, 8: teknisi lapor kendala, 9: teknisi lapor selesai');
+            $table->enum('kategori', [1,2,3,4,5,6,7,8,9])->default(1)->comment('1: menunggu, 2: admin memberi jadwal, 3: pelanggan konfirmasi setuju, 4: pelanggan konfirmasi tidak setuju, 5: admin memberi tugas, 6: admin meneruskan kendala, 7: teknisi menuju lokasi, 8: teknisi lapor kendala, 9: teknisi lapor selesai');
 
             $table->foreign('id_pelanggan')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

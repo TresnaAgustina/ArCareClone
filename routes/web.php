@@ -15,7 +15,11 @@ use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiJadwalControlle
 use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiKendalaController;
 use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketViewController;
 use App\Http\Controllers\Pelanggan\Tiket\TiketCreateController;
+use App\Http\Controllers\Teknisi\Tiket\TeknisiInfoMenujuLokasiController;
 use App\Http\Controllers\Teknisi\Tiket\TeknisiKelolaTiketController;
+use App\Http\Controllers\Teknisi\Tiket\TeknisiLaporKendalaController;
+use App\Http\Controllers\Teknisi\Tiket\TeknisiLaporSelesaiController;
+use App\Http\Controllers\Teknisi\Tiket\TeknisiTiketViewController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
             // POST
             Route::post('/{id}/kirim_jadwal', AdminTiketKirimJadwalController::class)->name('admin.tiket.kirim_jadwal');
             Route::post('/{id}/penugasan', AdminTiketPenugasanController::class)->name('admin.tiket.penugasan');
-            Route::post('/{id}/kirim_kendala', AdminTiketKirimKendalaController::class)->name('admin.tiket.sampaikan_kendala');
+            Route::post('/{id}/kirim_kendala', AdminTiketKirimKendalaController::class)->name('admin.tiket.meneruskan_kendala');
         });
     });
 
@@ -73,7 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
             // POST
             Route::post('/store', TiketCreateController::class)->name('pelanggan.tiket.store');
             Route::post('/{id}/konfirmasi_jadwal', PelangganTiketKonfirmasiJadwalController::class)->name('pelanggan.tiket.konfirmasi_jadwal');
-            Route::post('/{id}/konfirmasi_kendala', PelangganTiketKonfirmasiKendalaController::class)->name('pelanggan.tiket.konfirmasi_kendala');
+            Route::post('/{id}/konfirmasi_persetujuan', PelangganTiketKonfirmasiKendalaController::class)->name('pelanggan.tiket.konfirmasi_persetujuan');
         });
     });
 
@@ -82,12 +86,12 @@ Route::middleware('auth:sanctum')->group(function () {
         // Kelola Tiket
         Route::prefix('/tiket')->group(function () {
             // GET
-            Route::get('/', [TeknisiKelolaTiketController::class, 'index'])->name('teknisi.tiket.index');
-            Route::get('/{id}', [TeknisiKelolaTiketController::class, 'detail'])->name('teknisi.tiket.detail');
+            Route::get('/', [TeknisiTiketViewController::class, 'index'])->name('teknisi.tiket.index');
+            Route::get('/{id}', [TeknisiTiketViewController::class, 'detail'])->name('teknisi.tiket.detail');
             // POST
-            Route::post('/{id}/konfimasi_jadwal', [TeknisiKelolaTiketController::class, 'konfirmasi_jadwal'])->name('teknisi.tiket.konfirmasi_jadwal');
-            Route::post('/{id}/lapor_kendala', [TeknisiKelolaTiketController::class, 'lapor_kendala'])->name('teknisi.tiket.lapor_kendala');
-            Route::post('/{id}/lapor_selesai', [TeknisiKelolaTiketController::class, 'lapor_selesai'])->name('teknisi.tiket.lapor_selesai');
+            Route::post('/{id}/menuju_lokasi', TeknisiInfoMenujuLokasiController::class)->name('teknisi.tiket.menuju_lokasi');
+            Route::post('/{id}/lapor_kendala', TeknisiLaporKendalaController::class)->name('teknisi.tiket.lapor_kendala');
+            Route::post('/{id}/lapor_selesai', TeknisiLaporSelesaiController::class)->name('teknisi.tiket.lapor_selesai');
         });
     });
 });
