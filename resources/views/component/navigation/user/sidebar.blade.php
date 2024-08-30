@@ -50,7 +50,7 @@
            <li>
             <a
               class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-bold text-black hover:text-white duration-300 ease-in-out hover:bg-primary dark:hover:bg-meta-4"
-              href="/user/dashboard"            
+              href="/pelanggan/dashboard"            
               x-on:click="selected = (selected === 'Dashboard' ? '':'Dashboard'); subpage = ''"
               :class="{ 'bg-primary text-white dark:bg-meta-4': (selected === 'Dashboard') && (page === 'dashboard') }"
             >
@@ -103,7 +103,7 @@
                   <a
                     x-on:click="subpage = 'ticketMasuk'; page = 'ticketMasuk'"
                     class="group relative flex items-center gap-2.5 rounded-md font-semibold px-4 duration-300 ease-in-out hover:text-red-500"
-                    href="/user/ticket/incoming"
+                    href="/pelanggan/tiket/masuk"
                     x-bind:class="subpage === 'ticketMasuk' ? 'text-red-500' : 'text-bodydark2'"
                     >Ticket Masuk</a
                   >
@@ -112,7 +112,7 @@
                   <a
                     x-on:click="subpage = 'dikerjakan'; page = 'dikerjakan'"
                     class="group relative flex items-center gap-2.5 rounded-md font-semibold px-4 duration-300 ease-in-out hover:text-red-500"
-                    href="/user/ticket/process"
+                    href="/pelanggan/tiket/aktif"
                     x-bind:class="subpage === 'dikerjakan' ? 'text-red-500' : 'text-bodydark2'"
                     >Dikerjakan</a
                   >
@@ -122,6 +122,7 @@
                     x-on:click="subpage = 'pending'; page = 'pending'"
                     class="group relative flex items-center gap-2.5 rounded-md font-semibold px-4 duration-300 ease-in-out hover:text-red-500"
                     x-bind:class="subpage === 'pending' ? 'text-red-500' : 'text-bodydark2'"
+                     href="/pelanggan/tiket/pending"
                     >Pending</a
                   >
                 </li>
@@ -129,7 +130,8 @@
                   <a
                     x-on:click="subpage = 'selesai'; page = 'selesai'"
                     class="group relative flex items-center gap-2.5 rounded-md font-semibold px-4 duration-300 ease-in-out hover:text-red-500"
-                     x-bind:class="subpage === 'selesai' ? 'text-red-500' : 'text-bodydark2'"
+                    x-bind:class="subpage === 'selesai' ? 'text-red-500' : 'text-bodydark2'"
+                    href="/pelanggan/tiket/selesai"
                     >Selesai</a
                   >
                 </li>
@@ -138,6 +140,7 @@
                     x-on:click="subpage = 'dibatalkan'; page = 'dibatalkan'"
                     class="group relative flex items-center gap-2.5 rounded-md font-semibold px-4 duration-300 ease-in-out hover:text-red-500"
                     x-bind:class="subpage === 'dibatalkan' ? 'text-red-500' : 'text-bodydark2'"
+                     href="/pelanggan/tiket/dibatalkan"
                     >Dibatalkan</a
                   >
                 </li>

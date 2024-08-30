@@ -31,7 +31,17 @@ class PelangganTiketViewController extends Controller
     // View Tiket Masuk
     function masuk() : object {
         try {
-            //
+            $tiket = Ticket::where([
+                ['id_pelanggan', '=', Auth::user()->id],
+                ['status', '=', 'menunggu']
+            ])->orderBy('created_at', 'desc')->get();
+            foreach ($tiket as $t) {
+                $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
+            }
+
+            return  view('pages.user.ticket.view.masuk', [
+                'tiket' => $tiket
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()
@@ -41,7 +51,17 @@ class PelangganTiketViewController extends Controller
     // View Tiket Aktif/Dikerjakan
     function aktif() : object {
         try {
-            //code...
+            $tiket = Ticket::where([
+                ['id_pelanggan', '=', Auth::user()->id],
+                ['status', '=', 'dikerjakan']
+                ])->orderBy('created_at', 'desc')->get();
+            foreach ($tiket as $t) {
+                $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
+            }
+            
+            return  view('pages.user.ticket.view.aktif', [
+                'tiket' => $tiket
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()
@@ -51,7 +71,37 @@ class PelangganTiketViewController extends Controller
     // View Tiket Pending
     function pending() : object {
         try {
-            //code...
+            $tiket = Ticket::where([
+                ['id_pelanggan', '=', Auth::user()->id],
+                ['status', '=', 'pending']
+            ])->orderBy('created_at', 'desc')->get();
+            foreach ($tiket as $t) {
+                $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
+            }
+
+            return  view('pages.user.ticket.view.pending', [
+                'tiket' => $tiket
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(
+                'error', $th->getMessage()
+            );
+        }
+    }
+    // View Tiket Selesai
+    function selesai() : object {
+        try {
+            $tiket = Ticket::where([
+                ['id_pelanggan', '=', Auth::user()->id],
+                ['status', '=', 'selesai']
+            ])->orderBy('created_at', 'desc')->get();
+            foreach ($tiket as $t) {
+                $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
+            }
+
+            return  view('pages.user.ticket.view.selesai', [
+                'tiket' => $tiket
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()
@@ -59,9 +109,19 @@ class PelangganTiketViewController extends Controller
         }
     }
     // View Tiket Dibatalkan
-    function selesai() : object {
+    function dibatalkan() : object {
         try {
-            //code...
+            $tiket = Ticket::where([
+                ['id_pelanggan', '=', Auth::user()->id],
+                ['status', '=', 'dibatalkan']
+            ])->orderBy('created_at', 'desc')->get();
+            foreach ($tiket as $t) {
+                $t->tanggal_dibuat = Carbon::parse($t->tanggal_dibuat)->translatedFormat('d F Y');
+            }
+
+            return  view('pages.user.ticket.view.batal', [
+                'tiket' => $tiket
+            ]);
         } catch (\Throwable $th) {
             return redirect()->back()->with(
                 'error', $th->getMessage()

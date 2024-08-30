@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Tiket\AdminTiketPenugasanController;
 use App\Http\Controllers\Admin\Tiket\AdminTiketViewController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Pelanggan\dashboard\PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\Tiket\PelangganKelolaTiketController;
 use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiJadwalController;
 use App\Http\Controllers\Pelanggan\Tiket\PelangganTiketKonfirmasiKendalaController;
@@ -63,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // *** === PELANGGAN === *** //
     Route::prefix('/pelanggan')->group(function () {
+        Route::get('/dashboard', [PelangganDashboardController::class, 'home'])->name('pelanggan.dashboard');
         // Kelola Tiket
         Route::prefix('/tiket')->group(function () {
             // GET
@@ -96,9 +98,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::get('/login', fn() => view('pages.auth.login'))->name('login');
-Route::get('/user/dashboard', fn() => view('pages.user.dashboard'))->name('pelanggan.dashboard');
-Route::get('/user/ticket', fn() => view('pages.user.ticket.view.view_ticket_user'));
-Route::get('/user/ticket/incoming', fn() => view('pages.user.ticket.view.incoming'));
-Route::get('/user/ticket/process', fn() => view('pages.user.ticket.view.process'));
-Route::get('/user/ticket/add', fn() => view('pages.user.ticket.add_ticket'));
+// Route::get('/login', fn() => view('pages.auth.login'))->name('login');
+// Route::get('/user/dashboard', fn() => view('pages.user.dashboard'))->name('pelanggan.dashboard');
+// Route::get('/user/ticket', fn() => view('pages.user.ticket.view.view_ticket_user'));
+// Route::get('/user/ticket/incoming', fn() => view('pages.user.ticket.view.incoming'));
+// Route::get('/user/ticket/process', fn() => view('pages.user.ticket.view.process'));
+// Route::get('/user/ticket/add', fn() => view('pages.user.ticket.add_ticket'));
