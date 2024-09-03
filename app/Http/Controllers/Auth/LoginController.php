@@ -42,7 +42,7 @@ class LoginController extends Controller
                 // Redirect berdasarkan role user
                 switch (Auth::user()->role) {
                     case 'admin':
-                        return redirect()->route('admin.tiket.index');
+                        return redirect()->route('admin.dashboard');
                     case 'manajer':
                         return redirect()->route('manajer.dashboard');
                     case 'teknisi':

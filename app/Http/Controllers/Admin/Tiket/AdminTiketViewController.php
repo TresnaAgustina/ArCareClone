@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 
 class AdminTiketViewController extends Controller
 {
+    // live controller
     function index() : object {
         try {
             $tiket = Ticket::all();
-            return view('test.admin.admin-tiket-index', [
+            return view('pages.admin.tiket.view_ticket_user', [
                 'tiket' => $tiket
             ]);
         } catch (\Throwable $th) {
@@ -23,6 +24,20 @@ class AdminTiketViewController extends Controller
             );
         }
     }
+
+    // // test ticketing
+    // function index() : object {
+    //     try {
+    //         $tiket = Ticket::all();
+    //         return view('test.admin.admin-tiket-index', [
+    //             'tiket' => $tiket
+    //         ]);
+    //     } catch (\Throwable $th) {
+    //         return redirect()->back()->with(
+    //             'error', $th->getMessage()
+    //         );
+    //     }
+    // }
     function detail(Int $id) : object {
         try {
             $tiket = Ticket::find($id)->load('detail_tickets', 'detail_tickets.detail_products');

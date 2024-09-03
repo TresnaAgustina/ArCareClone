@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Akun\AkunCreateController;
 use App\Http\Controllers\Admin\Akun\AkunDeleteController;
 use App\Http\Controllers\Admin\Akun\AkunUpdateController;
+use App\Http\Controllers\Admin\dashboard\AdminDashboardController;
 use App\Http\Controllers\Admin\Tiket\AdminKelolaTiketController;
 use App\Http\Controllers\Admin\Tiket\AdminTiketKirimJadwalController;
 use App\Http\Controllers\Admin\Tiket\AdminTiketKirimKendalaController;
@@ -37,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
            
     // *** === ADMIN === *** //
     Route::prefix('/admin')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'home'])->name('admin.dashboard');
         // Kelola Akun
         Route::prefix('/akun')->group(function () {
             // GET
